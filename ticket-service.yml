@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://ticket-db:5433/ticket_db
+    username: ${DB_USER:postgres}
+    password: ${DB_PASS:postgres}
+
+  redis:
+    host: redis
+    port: 6379
+    timeout: 5000
+
+ticket:
+  reservation:
+    expiry-minutes: 30
+    max-per-user: 5
+  refund:
+    deadline-days: 7

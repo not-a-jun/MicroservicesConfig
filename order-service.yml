@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://order-db:5433/order_db
+    username: ${DB_USER:admin}
+    password: ${DB_PASS:admin}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  kafka:
+    bootstrap-servers: kafka:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+order:
+  processing:
+    timeout-seconds: 60
+    max-retries: 3

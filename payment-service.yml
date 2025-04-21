@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://payment-db:5433/payment_db
+    username: ${DB_USER:postgres}
+    password: ${DB_PASS:postgres}
+
+  kafka:
+    bootstrap-servers: kafka:9092
+    consumer:
+      group-id: payment-group
+      auto-offset-reset: earliest
+
+payment:
+  commission:
+    rate: 0.02
+  currencies:
+    supported: [USD, EUR, RUB]
