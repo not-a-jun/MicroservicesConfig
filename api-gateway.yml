@@ -13,15 +13,20 @@ spring:
                 name: orderService
                 fallbackUri: forward:/fallback/order
 
-            - id: payment-service
-              uri: lb://payment-service
-              predicates:
-                - Path=/api/payments/**
+        - id: payment-service
+          uri: lb://payment-service
+          predicates:
+            - Path=/api/payments/**
 
-            - id: ticket-service
-              uri: lb://ticket-service
-              predicates:
-                - Path=/api/tickets/**
-          server:
-            error:
-              include-message: always
+        - id: ticket-service
+          uri: lb://ticket-service
+          predicates:
+            - Path=/api/tickets/**
+
+      discovery:
+        locator:
+          enabled: true
+
+server:
+  error:
+    include-message: always
