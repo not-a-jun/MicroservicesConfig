@@ -12,21 +12,38 @@ spring:
               args:
                 name: orderService
                 fallbackUri: forward:/fallback/order
+                timeoutDuration: 5s
+                slidingWindowSize: 10
 
         - id: payment-service
           uri: lb://payment-service
           predicates:
             - Path=/api/payments/**
+          filters:
+            - StripPrefix=1
 
         - id: ticket-service
           uri: lb://ticket-service
           predicates:
             - Path=/api/tickets/**
+          filters:
+            - StripPrefix=1
 
       discovery:
         locator:
           enabled: true
+          lower-case-service-id: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, refresh, metrics
+  endpoint:
+    health:
+      show-details: always
 
 server:
   error:
     include-message: always
+    include-binding-errors: always
