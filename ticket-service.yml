@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://ticket-db:5433/ticket_db
+    url: jdbc:postgresql://ticket-db:5432/ticket_db
     username: ${DB_USER:postgres}
     password: ${DB_PASS:postgres}
 
