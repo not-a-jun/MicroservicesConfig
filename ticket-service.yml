@@ -5,13 +5,19 @@ spring:
     password: ${DB_PASS:postgres}
 
   redis:
-    host: redis
-    port: 6379
-    timeout: 5000
+    host: ${REDIS_HOST:redis}
+    port: ${REDIS_PORT:6379}
+    timeout: ${REDIS_TIMEOUT:5000}
 
 ticket:
   reservation:
-    expiry-minutes: 30
-    max-per-user: 5
+    expiry-minutes: ${RESERVATION_EXPIRY:30}
+    max-per-user: ${MAX_TICKETS_PER_USER:5}
   refund:
-    deadline-days: 7
+    deadline-days: ${REFUND_DEADLINE:7}
+
+tour:
+  integration:
+    url: ${TOUR_SERVICE_URL:http://tour-service:8085}
+    timeout: ${TOUR_TIMEOUT:5000}
+    cache-ttl: ${TOUR_CACHE_TTL:3600}

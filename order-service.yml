@@ -1,30 +1,24 @@
 spring:
   datasource:
     url: jdbc:postgresql://order-db:5433/order_db
-    username: ${DB_USER:admin}
-    password: ${DB_PASS:admin}
-    hikari:
-      connection-timeout: 30000
-      maximum-pool-size: 5
-
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
+    username: ${DB_USER:postgres}
+    password: ${DB_PASS:postgres}
 
   kafka:
     bootstrap-servers: ${KAFKA_HOST:kafka:9092}
     producer:
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
     consumer:
-      group-id: ${KAFKA_GROUP:order-group}
+      group-id: order-group
       auto-offset-reset: earliest
 
-order:
-  processing:
-    timeout-seconds: ${PROCESSING_TIMEOUT:60}
-    max-retries: ${MAX_RETRIES:3}
+saga:
+  events:
+    order-created: order-events
+    payment-processed: payment-events
+    ticket-reserved: ticket-events
+  timeout:
+    seconds: 60
+  compensation:
+    retries: 3
+    backoff-ms: 1000

@@ -33,17 +33,3 @@ spring:
         locator:
           enabled: true
           lower-case-service-id: true
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health, refresh, metrics
-  endpoint:
-    health:
-      show-details: always
-
-server:
-  error:
-    include-message: always
-    include-binding-errors: always

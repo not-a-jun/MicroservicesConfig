@@ -5,13 +5,15 @@ spring:
     password: ${DB_PASS:postgres}
 
   kafka:
-    bootstrap-servers: kafka:9092
+    bootstrap-servers: ${KAFKA_HOST:kafka:9092}
     consumer:
       group-id: payment-group
       auto-offset-reset: earliest
 
 payment:
   commission:
-    rate: 0.02
+    rate: ${COMMISSION_RATE:0.02}
   currencies:
-    supported: [USD, EUR, RUB]
+    supported: ${SUPPORTED_CURRENCIES:USD,EUR,RUB}
+  settlement:
+    timeout-hours: 24
