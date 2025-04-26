@@ -9,6 +9,14 @@ spring:
     consumer:
       group-id: payment-group
       auto-offset-reset: earliest
+    listener:
+      dead-letter-topic: payment-events.DLT
+      auto-startup: true
+      retry:
+        max-attempts: 3
+        backoff:
+          initial-interval: 1000ms
+          multiplier: 2.0
 
 payment:
   commission:
@@ -17,3 +25,9 @@ payment:
     supported: ${SUPPORTED_CURRENCIES:USD,EUR,RUB}
   settlement:
     timeout-hours: 24
+  retry:
+    max-attempts: 3
+    backoff-ms: 1000
+  timeout:
+    payment-processing-ms: 30000
+    refund-processing-ms: 60000

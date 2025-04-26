@@ -11,6 +11,13 @@ spring:
     consumer:
       group-id: order-group
       auto-offset-reset: earliest
+    listener:
+      dead-letter-topic: order-events.DLT
+      retry:
+        max-attempts: 3
+        backoff:
+          initial-interval: 1000
+          multiplier: 2.0
 
 saga:
   events:

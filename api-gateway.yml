@@ -8,12 +8,6 @@ spring:
             - Path=/api/orders/**
           filters:
             - StripPrefix=1
-            - name: CircuitBreaker
-              args:
-                name: orderService
-                fallbackUri: forward:/fallback/order
-                timeoutDuration: 5s
-                slidingWindowSize: 10
 
         - id: payment-service
           uri: lb://payment-service
@@ -33,3 +27,12 @@ spring:
         locator:
           enabled: true
           lower-case-service-id: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info
+  endpoint:
+    health:
+      show-details: always
